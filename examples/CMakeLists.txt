@@ -1,0 +1,2 @@
+add_executable(demo_codeatlas_cli demo_codeatlas_cli.cpp)
+target_link_libraries(demo_codeatlas_cli PRIVATE codeatlas)
