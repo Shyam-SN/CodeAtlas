@@ -27,9 +27,13 @@ endif()
 # Include directories
 include_directories(include)
 
-# Find LLVM and Clang (Homebrew usually installs to /opt/homebrew/opt/llvm)
-set(LLVM_DIR "/opt/homebrew/opt/llvm/lib/cmake/llvm" CACHE PATH "Path to LLVM CMake config")
-set(Clang_DIR "/opt/homebrew/opt/llvm/lib/cmake/clang" CACHE PATH "Path to Clang CMake config")
+# Find LLVM and Clang
+if(NOT DEFINED LLVM_DIR AND EXISTS "/opt/homebrew/opt/llvm/lib/cmake/llvm")
+    set(LLVM_DIR "/opt/homebrew/opt/llvm/lib/cmake/llvm" CACHE PATH "Path to LLVM CMake config")
+endif()
+if(NOT DEFINED Clang_DIR AND EXISTS "/opt/homebrew/opt/llvm/lib/cmake/clang")
+    set(Clang_DIR "/opt/homebrew/opt/llvm/lib/cmake/clang" CACHE PATH "Path to Clang CMake config")
+endif()
 find_package(LLVM REQUIRED CONFIG)
 find_package(Clang REQUIRED CONFIG)
 include_directories(${LLVM_INCLUDE_DIRS} ${CLANG_INCLUDE_DIRS})
